@@ -10,7 +10,7 @@ categories: [news]
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("./data/bike_data.csv")
+df = pd.read_csv("./bike_data.csv")
 
 df = df.astype({'datetime' : 'datetime64[ns]', 'weather' : 'int64', 
                 'season' : 'object', 'workingday' : 'object', 
@@ -70,9 +70,13 @@ melted.groupby(['season','user_type'])['user_count'].mean().reset_index()
 
 ## 과제 2
 ```{python}
+
+import pandas as pd
+import numpy as np
+
 # 앱 로그 데이터
 pd.set_option('display.max_columns', None) # 전체 칼럼 정보 프린트 옵션
-df = pd.read_csv('./data/logdata.csv')
+df = pd.read_csv('./logdata.csv')
 print(df.head(2))
 
 # 로그 칼럼에서 연도 정보만 추출

@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/assignment/index.html",
       "/posts/intro/index.html",
       "/posts/pandas_practice/index.html",
       "/posts/post-with-code/index.html"
