@@ -1,0 +1,16 @@
+---
+title: "JEONGMIN OH"
+image: 'https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_1280.jpg'
+about:
+  template: jolla
+  links:
+    - icon: instagram
+      text: instagram
+      href: https://instagram.com/
+    - icon: github
+      text: Github
+      href: https://github.com/ppuppou
+
+---
+
+오정민의 블로그입니다

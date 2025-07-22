@@ -1,0 +1,12 @@
+---
+title: "Welcome To My Blog 2"
+author: "JEONGMIN OH"
+date: "2025-07-22"
+categories: [news]
+---
+
+This is the first post in a Quarto blog. Welcome!
+
+![](thumbnail.jpg)
+
+안녕하세요 !

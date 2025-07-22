@@ -1,0 +1,8 @@
+---
+title: "Intro"
+author: "JEONGMIN OH"
+date: now
+categories: [news]
+---
+
+나의 첫 블로그입니다. 잘부탁드려요
