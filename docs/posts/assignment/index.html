@@ -198,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="과제-1" class="level2">
 <h2 class="anchored" data-anchor-id="과제-1">과제 1</h2>
-<div id="db693bae" class="cell" data-execution_count="1">
+<div id="9815e419" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -214,51 +214,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">'hour'</span>] <span class="op">=</span> df1[<span class="st">'datetime'</span>].dt.hour</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df1.groupby(<span class="st">'hour'</span>)[<span class="st">'count'</span>].mean().reset_index()</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>q1 <span class="op">=</span> df2.loc[df2[<span class="st">'count'</span>].idxmax(),[<span class="st">'hour'</span>,<span class="st">'count'</span>]]</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">f"count가 가장 높은 시간대는 </span><span class="sc">{</span>q1[<span class="st">'hour'</span>]<span class="sc">}</span><span class="ss">시이며 </span><span class="sc">{</span>q1[<span class="st">'count'</span>]<span class="sc">}</span><span class="ss">회 입니다"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 계절별 평균 대여량 구하기</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'season'</span>)[<span class="st">'count'</span>].mean().reset_index()</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 달 동안 총 대여량 구하기</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'month'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.month</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'month'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().reset_index()</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 가장 대여량이 많은 날짜</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.date</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'date'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().idxmax()</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'date'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().<span class="bu">max</span>()</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 시간대별 평균 대여량</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'hour'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.hour</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'hour'</span>)[<span class="st">'count'</span>].mean().reset_index()</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 특정 요일(weekday) 동안의 총 대여량(count)</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'요일'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.day_name()</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> df.groupby(<span class="st">'요일'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().reset_index()</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">f'월요일동안 총 대여량은 </span><span class="sc">{</span>result<span class="sc">.</span>iloc[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">}</span><span class="ss">입니다'</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>result[<span class="st">'요일'</span>] <span class="op">=</span> result[<span class="st">'요일'</span>].astype(<span class="st">'category'</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="co"># result['요일'].array.categories = np.array(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>result[<span class="st">'요일'</span>] <span class="op">=</span> result[<span class="st">'요일'</span>].cat.set_categories(</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    [<span class="st">'Monday'</span>, <span class="st">'Tuesday'</span>, <span class="st">'Wednesday'</span>, <span class="st">'Thursday'</span>, <span class="st">'Friday'</span>, <span class="st">'Saturday'</span>, <span class="st">'Sunday'</span>],</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    ordered<span class="op">=</span><span class="va">True</span>  <span class="co"># 순서가 중요할 경우</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>result[<span class="st">'요일'</span>].sort_values()</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 주어진 Bike Sharing 데이터를 사용하여 넓은 형식(wide format)에서 </span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 긴 형식(long format)으로 변환하시오. casual과 registered 열을 하나의</span></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 열로 변환하고, 각 기록의 대여 유형과 대여 수를 포함하는 긴 형식 </span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터프레임을 만드시오.</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>melted <span class="op">=</span> df.melt(id_vars<span class="op">=</span>(<span class="st">'datetime'</span>,<span class="st">'season'</span>),</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                var_name<span class="op">=</span><span class="st">'user_type'</span>,</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>                value_vars<span class="op">=</span>(<span class="st">'casual'</span>,<span class="st">'registered'</span>),</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                value_name<span class="op">=</span>(<span class="st">'user_count'</span>)</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                ).sort_values(<span class="st">'datetime'</span>)</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 이전에 생성한 긴 형식 데이터프레임을 활용하여 각 계절(season)별로 </span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co"># casual과 registered 사용자의 평균 대여 수(count)를 구하시오.</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>melted.groupby([<span class="st">'season'</span>,<span class="st">'user_type'</span>])[<span class="st">'user_count'</span>].mean().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">f"count가 가장 높은 시간대는 </span><span class="sc">{</span>q1[<span class="st">'hour'</span>]<span class="sc">}</span><span class="ss">시이며 </span><span class="sc">{</span>q1[<span class="st">'count'</span>]<span class="sc">}</span><span class="ss">회 입니다"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\ls\AppData\Local\Temp\ipykernel_7240\3263512430.py:13: SettingWithCopyWarning: 
+<pre><code>C:\Users\ls\AppData\Local\Temp\ipykernel_12464\4114978373.py:13: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
@@ -266,6 +224,428 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   df1['hour'] = df1['datetime'].dt.hour</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>'count가 가장 높은 시간대는 17.0시이며 346.3333333333333회 입니다'</code></pre>
+</div>
+</div>
+<section id="계절별-평균-대여량-구하기" class="level3">
+<h3 class="anchored" data-anchor-id="계절별-평균-대여량-구하기">계절별 평균 대여량 구하기</h3>
+<div id="22c7ca04" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'season'</span>)[<span class="st">'count'</span>].mean().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">season</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>103.169811</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>218.803922</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>265.500000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>218.581197</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="특정-달-동안-총-대여량-구하기" class="level3">
+<h3 class="anchored" data-anchor-id="특정-달-동안-총-대여량-구하기">특정 달 동안 총 대여량 구하기</h3>
+<div id="ff1d56c0" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'month'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.month</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'month'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">month</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1</td>
+<td>2567</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2</td>
+<td>4849</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>3520</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>4</td>
+<td>5911</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>5</td>
+<td>10082</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>6</td>
+<td>6325</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>7</td>
+<td>8517</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>8</td>
+<td>10480</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>9</td>
+<td>10208</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>10</td>
+<td>10574</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>11</td>
+<td>6631</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>12</td>
+<td>8369</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="가장-대여량이-많은-날짜" class="level3">
+<h3 class="anchored" data-anchor-id="가장-대여량이-많은-날짜">가장 대여량이 많은 날짜</h3>
+<div id="84791b3e" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'date'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.date</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'date'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().idxmax()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'date'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>1398</code></pre>
+</div>
+</div>
+</section>
+<section id="시간대별-평균-대여량" class="level3">
+<h3 class="anchored" data-anchor-id="시간대별-평균-대여량">시간대별 평균 대여량</h3>
+<div id="ca6be148" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'hour'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.hour</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'hour'</span>)[<span class="st">'count'</span>].mean().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">hour</th>
+<th data-quarto-table-cell-role="th">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>0</td>
+<td>43.500000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1</td>
+<td>52.714286</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2</td>
+<td>32.842105</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>3</td>
+<td>12.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>4</td>
+<td>6.687500</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>5</td>
+<td>17.750000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>6</td>
+<td>58.705882</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>7</td>
+<td>208.937500</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>8</td>
+<td>483.055556</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>9</td>
+<td>260.117647</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>10</td>
+<td>144.130435</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>11</td>
+<td>182.000000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>12</td>
+<td>277.533333</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>13</td>
+<td>290.600000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>14</td>
+<td>266.842105</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>15</td>
+<td>255.666667</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>16</td>
+<td>373.052632</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>17</td>
+<td>519.200000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>18</td>
+<td>447.769231</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>19</td>
+<td>322.103448</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>20</td>
+<td>210.083333</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>21</td>
+<td>196.619048</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>22</td>
+<td>113.560000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>23</td>
+<td>77.352941</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="특정-요일weekday-동안의-총-대여량count" class="level3">
+<h3 class="anchored" data-anchor-id="특정-요일weekday-동안의-총-대여량count">특정 요일(weekday) 동안의 총 대여량(count)</h3>
+<div id="cbbb9a24" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'요일'</span>] <span class="op">=</span> df[<span class="st">'datetime'</span>].dt.day_name()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> df.groupby(<span class="st">'요일'</span>)[<span class="st">'count'</span>].<span class="bu">sum</span>().reset_index()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ss">f'월요일동안 총 대여량은 </span><span class="sc">{</span>result<span class="sc">.</span>iloc[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">}</span><span class="ss">입니다'</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># result['요일'] = result['요일'].astype('category')</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># result['요일'].array.categories = np.array(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># result['요일'] = result['요일'].cat.set_categories(</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     ordered=True  # 순서가 중요할 경우</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># result['요일'].sort_values()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>'월요일동안 총 대여량은 10191입니다'</code></pre>
+</div>
+</div>
+</section>
+<section id="주어진-bike-sharing-데이터를-사용하여-넓은-형식wide-format에서-긴-형식long-format으로-변환하시오.-casual과-registered-열을-하나의-열로-변환하고-각-기록의-대여-유형과-대여-수를-포함하는-긴-형식-데이터프레임을-만드시오." class="level3">
+<h3 class="anchored" data-anchor-id="주어진-bike-sharing-데이터를-사용하여-넓은-형식wide-format에서-긴-형식long-format으로-변환하시오.-casual과-registered-열을-하나의-열로-변환하고-각-기록의-대여-유형과-대여-수를-포함하는-긴-형식-데이터프레임을-만드시오.">주어진 Bike Sharing 데이터를 사용하여 넓은 형식(wide format)에서 긴 형식(long format)으로 변환하시오. casual과 registered 열을 하나의 열로 변환하고, 각 기록의 대여 유형과 대여 수를 포함하는 긴 형식 데이터프레임을 만드시오.</h3>
+<div id="61a7c07d" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>melted <span class="op">=</span> df.melt(id_vars<span class="op">=</span>(<span class="st">'datetime'</span>,<span class="st">'season'</span>),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                var_name<span class="op">=</span><span class="st">'user_type'</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                value_vars<span class="op">=</span>(<span class="st">'casual'</span>,<span class="st">'registered'</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                value_name<span class="op">=</span>(<span class="st">'user_count'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                ).sort_values(<span class="st">'datetime'</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>melted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">datetime</th>
+<th data-quarto-table-cell-role="th">season</th>
+<th data-quarto-table-cell-role="th">user_type</th>
+<th data-quarto-table-cell-role="th">user_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">781</td>
+<td>2011-01-01 05:00:00</td>
+<td>1</td>
+<td>registered</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">346</td>
+<td>2011-01-01 05:00:00</td>
+<td>1</td>
+<td>casual</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">231</td>
+<td>2011-01-01 20:00:00</td>
+<td>1</td>
+<td>casual</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">666</td>
+<td>2011-01-01 20:00:00</td>
+<td>1</td>
+<td>registered</td>
+<td>25</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">838</td>
+<td>2011-01-04 00:00:00</td>
+<td>1</td>
+<td>registered</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">661</td>
+<td>2012-12-18 13:00:00</td>
+<td>4</td>
+<td>registered</td>
+<td>235</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">464</td>
+<td>2012-12-19 12:00:00</td>
+<td>4</td>
+<td>registered</td>
+<td>203</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">29</td>
+<td>2012-12-19 12:00:00</td>
+<td>4</td>
+<td>casual</td>
+<td>33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">831</td>
+<td>2012-12-19 21:00:00</td>
+<td>4</td>
+<td>registered</td>
+<td>164</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">396</td>
+<td>2012-12-19 21:00:00</td>
+<td>4</td>
+<td>casual</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+<p>870 rows × 4 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="이전에-생성한-긴-형식-데이터프레임을-활용하여-각-계절season별로-casual과-registered-사용자의-평균-대여-수count를-구하시오." class="level3">
+<h3 class="anchored" data-anchor-id="이전에-생성한-긴-형식-데이터프레임을-활용하여-각-계절season별로-casual과-registered-사용자의-평균-대여-수count를-구하시오.">이전에 생성한 긴 형식 데이터프레임을 활용하여 각 계절(season)별로 casual과 registered 사용자의 평균 대여 수(count)를 구하시오.</h3>
+<div id="922da515" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>melted.groupby([<span class="st">'season'</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">'user_type'</span>])[<span class="st">'user_count'</span>].mean().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -334,56 +714,585 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 </div>
 </div>
 </section>
+</section>
 <section id="과제-2" class="level2">
 <h2 class="anchored" data-anchor-id="과제-2">과제 2</h2>
-<div id="5eb89a69" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 앱 로그 데이터</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>) <span class="co"># 전체 칼럼 정보 프린트 옵션</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'./logdata.csv'</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head(<span class="dv">2</span>))</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 칼럼에서 연도 정보만 추출</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="vs">20</span><span class="pp">[0-9]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 모든 숫자정보 추출</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>mat1 <span class="op">=</span> df[<span class="st">'로그'</span>].<span class="bu">str</span>.extractall(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[0-9]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>).reset_index()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> mat1[<span class="st">'match'</span>]</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>mat1.groupby(<span class="st">'level_0'</span>)[<span class="dv">0</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">' '</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, x)))</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 칼럼에서 모든 시간 정보를 추출</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[0-9]</span><span class="op">{2}</span><span class="vs">:</span><span class="pp">[0-9]</span><span class="op">{2}</span><span class="vs">:</span><span class="pp">[0-9]</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">'</span>)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 칼럼에서 한글 정보만 추출</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extractall(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[가-힣]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 칼럼에서 특수 문자를 제거</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.replace(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[^a-zA-Z0-9가-힣</span><span class="dv">\s</span><span class="pp">]</span><span class="kw">)</span><span class="vs">'</span>,<span class="st">''</span>,regex<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 칼럼에서 유저, Amount 값을 추출한 후 각 유저별 Amount의 평균값을 계산하시오.</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame()</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">'amount'</span>] <span class="op">=</span> df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'Amount: </span><span class="kw">(</span><span class="pp">[0-9]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">'user'</span>] <span class="op">=</span> df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'User: </span><span class="kw">(</span><span class="pp">[가-힣]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df1.dropna()</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>df2[<span class="st">'amount'</span>] <span class="op">=</span> df2[<span class="st">'amount'</span>].astype(<span class="st">'int64'</span>)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>df2.groupby(<span class="st">'user'</span>)[<span class="st">'amount'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c4d1c01f" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 앱 로그 데이터</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="va">None</span>) <span class="co"># 전체 칼럼 정보 프린트 옵션</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'./logdata.csv'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.head(<span class="dv">2</span>))</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 로그 칼럼에서 연도 정보만 추출</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="vs">20</span><span class="pp">[0-9]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                                  로그
 0  2024-07-18 12:34:56 User: 홍길동 Action: Login ID...
 1  2024-07-18 12:35:00 User: 김철수 Action: Purchase...</code></pre>
 </div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>2024</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>2024</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>2024</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="모든-숫자정보-추출" class="level3">
+<h3 class="anchored" data-anchor-id="모든-숫자정보-추출">모든 숫자정보 추출</h3>
+<div id="01df87b4" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mat1 <span class="op">=</span> df[<span class="st">'로그'</span>].<span class="bu">str</span>.extractall(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[0-9]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>).reset_index()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> mat1[<span class="st">'match'</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mat1.groupby(<span class="st">'level_0'</span>)[<span class="dv">0</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">' '</span>.join(<span class="bu">map</span>(<span class="bu">str</span>, x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>level_0
+0     2024 07 18 12 34 56 12345
+1      2024 07 18 12 35 00 2000
+2        2024 07 18 12 36 10 30
+3     2024 07 18 12 37 22 67890
+4      2024 07 18 12 38 44 1500
+5        2024 07 18 12 39 50 25
+6      2024 07 18 12 40 56 3500
+7     2024 07 18 12 41 00 23456
+8      2024 07 18 12 42 10 3000
+9        2024 07 18 12 43 22 45
+10    2024 07 18 12 44 44 78901
+11     2024 07 18 12 45 50 4000
+12       2024 07 18 12 46 56 35
+13     2024 07 18 12 47 00 2500
+14    2024 07 18 12 48 10 56789
+15     2024 07 18 12 49 22 4500
+16       2024 07 18 12 50 44 50
+17    2024 07 18 12 51 50 34567
+18     2024 07 18 12 52 56 5000
+19       2024 07 18 12 53 00 20
+20     2024 07 18 12 54 10 5500
+21    2024 07 18 12 55 22 12346
+22     2024 07 18 12 56 44 6000
+23       2024 07 18 12 57 50 55
+24    2024 07 18 12 58 56 67891
+25     2024 07 18 12 59 00 6500
+26       2024 07 18 13 00 10 40
+27     2024 07 18 13 01 22 7000
+28    2024 07 18 13 02 44 78902
+29     2024 07 18 13 03 50 7500
+Name: 0, dtype: object</code></pre>
+</div>
+</div>
+</section>
+<section id="로그-칼럼에서-모든-시간-정보를-추출" class="level3">
+<h3 class="anchored" data-anchor-id="로그-칼럼에서-모든-시간-정보를-추출">로그 칼럼에서 모든 시간 정보를 추출</h3>
+<div id="49ad6f9d" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[0-9]</span><span class="op">{2}</span><span class="vs">:</span><span class="pp">[0-9]</span><span class="op">{2}</span><span class="vs">:</span><span class="pp">[0-9]</span><span class="op">{2}</span><span class="kw">)</span><span class="vs">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>12:34:56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>12:35:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>12:36:10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>12:37:22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>12:38:44</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>12:39:50</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>12:40:56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>12:41:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>12:42:10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>12:43:22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>12:44:44</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>12:45:50</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td>12:46:56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td>12:47:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td>12:48:10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>12:49:22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td>12:50:44</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td>12:51:50</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td>12:52:56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td>12:53:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>12:54:10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>12:55:22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>12:56:44</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>12:57:50</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>12:58:56</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td>12:59:00</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td>13:00:10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td>13:01:22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td>13:02:44</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>13:03:50</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="로그-칼럼에서-한글-정보만-추출" class="level3">
+<h3 class="anchored" data-anchor-id="로그-칼럼에서-한글-정보만-추출">로그 칼럼에서 한글 정보만 추출</h3>
+<div id="c62bd53d" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.extractall(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[가-힣]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">match</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>홍길동</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>김철수</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>이영희</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>박지성</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>최강타</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>장보고</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>홍길동</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>김철수</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>이영희</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>박지성</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>최강타</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>장보고</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">12</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>홍길동</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">13</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>김철수</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">14</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>이영희</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>박지성</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">16</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>최강타</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">17</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>장보고</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">18</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>홍길동</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">19</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>김철수</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>이영희</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>박지성</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>최강타</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>장보고</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>홍길동</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">25</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>김철수</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">26</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>이영희</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">27</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>박지성</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">28</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>최강타</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>장보고</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="로그-칼럼에서-특수-문자를-제거" class="level3">
+<h3 class="anchored" data-anchor-id="로그-칼럼에서-특수-문자를-제거">로그 칼럼에서 특수 문자를 제거</h3>
+<div id="6aae2535" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'로그'</span>].<span class="bu">str</span>.replace(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[^a-zA-Z0-9가-힣</span><span class="dv">\s</span><span class="pp">]</span><span class="kw">)</span><span class="vs">'</span>,<span class="st">''</span>,regex<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>0         20240718 123456 User 홍길동 Action Login ID12345
+1     20240718 123500 User 김철수 Action Purchase Amoun...
+2       20240718 123610 User 이영희 Action Logout Time 30s
+3         20240718 123722 User 박지성 Action Login ID67890
+4     20240718 123844 User 최강타 Action Purchase Amoun...
+5       20240718 123950 User 장보고 Action Logout Time 25s
+6     20240718 124056 User 홍길동 Action Purchase Amoun...
+7         20240718 124100 User 김철수 Action Login ID23456
+8     20240718 124210 User 이영희 Action Purchase Amoun...
+9       20240718 124322 User 박지성 Action Logout Time 45s
+10        20240718 124444 User 최강타 Action Login ID78901
+11    20240718 124550 User 장보고 Action Purchase Amoun...
+12      20240718 124656 User 홍길동 Action Logout Time 35s
+13    20240718 124700 User 김철수 Action Purchase Amoun...
+14        20240718 124810 User 이영희 Action Login ID56789
+15    20240718 124922 User 박지성 Action Purchase Amoun...
+16      20240718 125044 User 최강타 Action Logout Time 50s
+17        20240718 125150 User 장보고 Action Login ID34567
+18    20240718 125256 User 홍길동 Action Purchase Amoun...
+19      20240718 125300 User 김철수 Action Logout Time 20s
+20    20240718 125410 User 이영희 Action Purchase Amoun...
+21        20240718 125522 User 박지성 Action Login ID12346
+22    20240718 125644 User 최강타 Action Purchase Amoun...
+23      20240718 125750 User 장보고 Action Logout Time 55s
+24        20240718 125856 User 홍길동 Action Login ID67891
+25    20240718 125900 User 김철수 Action Purchase Amoun...
+26      20240718 130010 User 이영희 Action Logout Time 40s
+27    20240718 130122 User 박지성 Action Purchase Amoun...
+28        20240718 130244 User 최강타 Action Login ID78902
+29    20240718 130350 User 장보고 Action Purchase Amoun...
+Name: 로그, dtype: object</code></pre>
+</div>
+</div>
+</section>
+<section id="로그-칼럼에서-유저-amount-값을-추출한-후-각-유저별-amount의-평균값을-계산하시오." class="level3">
+<h3 class="anchored" data-anchor-id="로그-칼럼에서-유저-amount-값을-추출한-후-각-유저별-amount의-평균값을-계산하시오.">로그 칼럼에서 유저, Amount 값을 추출한 후 각 유저별 Amount의 평균값을 계산하시오.</h3>
+<div id="3fe4ddf4" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">'amount'</span>] <span class="op">=</span> df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'Amount: </span><span class="kw">(</span><span class="pp">[0-9]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>df1[<span class="st">'user'</span>] <span class="op">=</span> df[<span class="st">'로그'</span>].<span class="bu">str</span>.extract(<span class="vs">r'User: </span><span class="kw">(</span><span class="pp">[가-힣]</span><span class="op">+</span><span class="kw">)</span><span class="vs">'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df1.dropna()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>df2[<span class="st">'amount'</span>] <span class="op">=</span> df2[<span class="st">'amount'</span>].astype(<span class="st">'int64'</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>df2.groupby(<span class="st">'user'</span>)[<span class="st">'amount'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\ls\AppData\Local\Temp\ipykernel_7240\3969075094.py:32: SettingWithCopyWarning: 
+<pre><code>C:\Users\ls\AppData\Local\Temp\ipykernel_12464\774835434.py:5: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame.
 Try using .loc[row_indexer,col_indexer] = value instead
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
   df2['amount'] = df2['amount'].astype('int64')</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>user
 김철수    3666.666667
 박지성    5750.000000
@@ -396,6 +1305,7 @@ Name: amount, dtype: float64</code></pre>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
