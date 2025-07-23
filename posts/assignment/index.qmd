@@ -28,13 +28,13 @@ f"count가 가장 높은 시간대는 {q1['hour']}시이며 {q1['count']}회 입
 ```
 
 
-### 계절별 평균 대여량 구하기
+2 계절별 평균 대여량 구하기
 ```{python}
 df.groupby('season')['count'].mean().reset_index()
 ```
 
 
-### 특정 달 동안 총 대여량 구하기
+3 특정 달 동안 총 대여량 구하기
 ```{python}
 df['month'] = df['datetime'].dt.month
 df.groupby('month')['count'].sum().reset_index()
