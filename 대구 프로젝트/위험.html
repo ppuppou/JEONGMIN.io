@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위험지역 6곳의 공통 패턴 분석</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb;
+            line-height: 1.6;
+            color: #374151;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: #1f2937;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .legend {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            margin-right: 8px;
+            display: inline-block;
+        }
+        
+        .patterns-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+        
+        .patterns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .pattern-card {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid;
+        }
+        
+        .pattern-card.red {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+        }
+        
+        .pattern-card.blue {
+            background: #eff6ff;
+            border-left-color: #3b82f6;
+        }
+        
+        .pattern-card.yellow {
+            background: #fefce8;
+            border-left-color: #eab308;
+        }
+        
+        .pattern-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-title.red { color: #b91c1c; }
+        .pattern-title.blue { color: #1d4ed8; }
+        .pattern-title.yellow { color: #a16207; }
+        
+        .pattern-value {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .pattern-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .area-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid;
+            background: linear-gradient(135deg, var(--bg-from), var(--bg-to));
+        }
+        
+        .area-card.red {
+            --bg-from: #fef2f2;
+            --bg-to: #fecaca;
+            border-color: #fca5a5;
+        }
+        
+        .area-card.orange {
+            --bg-from: #fff7ed;
+            --bg-to: #fed7aa;
+            border-color: #fdba74;
+        }
+        
+        .area-card.yellow {
+            --bg-from: #fefce8;
+            --bg-to: #fef3c7;
+            border-color: #fed7aa;
+        }
+        
+        .area-card.purple {
+            --bg-from: #faf5ff;
+            --bg-to: #f3e8ff;
+            border-color: #e9d5ff;
+        }
+        
+        .area-card.green {
+            --bg-from: #f0fdf4;
+            --bg-to: #dcfce7;
+            border-color: #bbf7d0;
+        }
+        
+        .area-card.blue {
+            --bg-from: #eff6ff;
+            --bg-to: #dbeafe;
+            border-color: #bfdbfe;
+        }
+        
+        .area-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .area-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .area-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .area-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .area-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        
+        .area-desc {
+            font-size: 0.8rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background: rgba(255,255,255,0.7);
+        }
+        
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .group-card {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid;
+        }
+        
+        .group-card.red {
+            background: #fef2f2;
+            border-color: #fecaca;
+        }
+        
+        .group-card.purple {
+            background: #faf5ff;
+            border-color: #e9d5ff;
+        }
+        
+        .group-card.blue {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+        
+        .group-card.green {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        
+        .group-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .group-title.red { color: #b91c1c; }
+        .group-title.purple { color: #7c2d12; }
+        .group-title.blue { color: #1d4ed8; }
+        .group-title.green { color: #047857; }
+        
+        .group-desc {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: #6b7280;
+        }
+        
+        .group-list {
+            list-style: none;
+            font-size: 0.8rem;
+        }
+        
+        .group-list li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #fecaca, #dbeafe);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .conclusion-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .conclusion-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #374151;
+        }
+        
+        .conclusion-formula {
+            margin-bottom: 1rem;
+        }
+        
+        .conclusion-insight {
+            font-size: 0.9rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .patterns-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 위험지역 6곳의 공통 패턴 분석</h1>
+        
+        <!-- 차트 섹션 -->
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title">전체 평균 대비 비율</div>
+                <canvas id="comparisonChart" width="400" height="300"></canvas>
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #ef4444;"></span>
+                        위험요소 (높을수록 위험)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #3b82f6;"></span>
+                        안전요소 (낮을수록 위험)
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background-color: #64748b;"></span>
+                        중성요소
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">각 지역별 주요 지표 비교</div>
+                <canvas id="individualChart" width="400" height="300"></canvas>
+            </div>
+        </div>
+        
+        <!-- 핵심 패턴 발견 */}
+        <div class="patterns-section">
+            <div class="section-title">🎯 핵심 패턴 발견</div>
+            <div class="patterns-grid">
+                <div class="pattern-card red">
+                    <div class="pattern-title red">🔥 극도의 인구 과밀</div>
+                    <div class="pattern-value">평균의 <strong>2.69배</strong> 높은 인구밀도</div>
+                    <div class="pattern-desc">사람이 몰릴수록 범죄 기회 증가</div>
+                </div>
+                
+                <div class="pattern-card red">
+                    <div class="pattern-title red">🌍 외국인 집중지역</div>
+                    <div class="pattern-value">평균의 <strong>2.24배</strong> 높은 외국인 비율</div>
+                    <div class="pattern-desc">언어장벽, 문화차이로 치안 사각지대</div>
+                </div>
+                
+                <div class="pattern-card blue">
+                    <div class="pattern-title blue">🚔 치안기관 절대부족</div>
+                    <div class="pattern-value">평균의 <strong>16%</strong> 수준</div>
+                    <div class="pattern-desc">즉시 대응할 경찰력 부재</div>
+                </div>
+                
+                <div class="pattern-card blue">
+                    <div class="pattern-title blue">📹 CCTV 인프라 붕괴</div>
+                    <div class="pattern-value">평균의 <strong>24%</strong> 수준</div>
+                    <div class="pattern-desc">범죄 예방·수사 도구 부족</div>
+                </div>
+                
+                <div class="pattern-card blue">
+                    <div class="pattern-title blue">🚨 비상벨 부족</div>
+                    <div class="pattern-value">평균의 <strong>55%</strong> 수준</div>
+                    <div class="pattern-desc">응급상황 대응체계 미흡</div>
+                </div>
+                
+                <div class="pattern-card yellow">
+                    <div class="pattern-title yellow">🍺 유흥업소는 적음</div>
+                    <div class="pattern-value">평균의 <strong>23%</strong> 수준</div>
+                    <div class="pattern-desc">일반적 편견과 다른 현실</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 개별 위험지역 분석 -->
+        <div class="patterns-section">
+            <div class="section-title">🏘️ 동별 상세 분석</div>
+            <div class="areas-grid">
+                <!-- 진천동 -->
+                <div class="area-card red">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #b91c1c;">🥇 진천동</div>
+                        <div class="area-badge" style="background-color: #dc2626;">1위</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>등록인구:</span>
+                            <span style="font-weight: bold; color: #dc2626;">10.0 (3.5배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>외국인비율:</span>
+                            <span>0.32 (0.4배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.37 (0.5배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.11 (0.1배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #991b1b;">9.08</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #b91c1c;">
+                        💥 <strong>극도의 인구과밀</strong>에 비해 안전시설 절대부족
+                    </div>
+                </div>
+                
+                <!-- 신당동 -->
+                <div class="area-card purple">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #7c2d12;">신당동</div>
+                        <div class="area-badge" style="background-color: #7c3aed;">2위</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>등록인구:</span>
+                            <span style="font-weight: bold; color: #dc2626;">6.74 (2.4배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>외국인비율:</span>
+                            <span style="font-weight: bold; color: #dc2626;">10.0 (12배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.20 (0.3배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.04 (0.04배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #991b1b;">6.07</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #7c2d12;">
+                        🌍 <strong>외국인 초집중지역</strong> + CCTV 거의 없음
+                    </div>
+                </div>
+                
+                <!-- 안심1동 -->
+                <div class="area-card orange">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #c2410c;">안심1동</div>
+                        <div class="area-badge" style="background-color: #ea580c;">3위</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>등록인구:</span>
+                            <span style="font-weight: bold; color: #dc2626;">7.94 (2.8배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>외국인비율:</span>
+                            <span>0.33 (0.4배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.00 (0배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.25 (0.3배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #991b1b;">9.06</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #c2410c;">
+                        🚔 <strong>치안기관 완전공백</strong> + 높은 인구밀도
+                    </div>
+                </div>
+                
+                <!-- 월성1동 -->
+                <div class="area-card yellow">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #a16207;">월성1동</div>
+                        <div class="area-badge" style="background-color: #ca8a04;">4위</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>등록인구:</span>
+                            <span style="font-weight: bold; color: #dc2626;">7.71 (2.7배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>외국인비율:</span>
+                            <span>0.07 (0.1배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.00 (0배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span>0.82 (0.9배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #991b1b;">6.96</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #a16207;">
+                        🏠 <strong>순수 주거지역</strong>이지만 치안공백으로 위험
+                    </div>
+                </div>
+                
+                <!-- 관문동 -->
+                <div class="area-card green">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #047857;">관문동</div>
+                        <div class="area-badge" style="background-color: #059669;">4위</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>등록인구:</span>
+                            <span style="font-weight: bold; color: #dc2626;">6.84 (2.4배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>외국인비율:</span>
+                            <span>0.19 (0.2배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.13 (0.2배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.10 (0.1배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #991b1b;">6.05</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #047857;">
+                        📹 <strong>CCTV 극부족</strong> + 치안기관 부족
+                    </div>
+                </div>
+                
+                <!-- 무태조야동 -->
+                <div class="area-card blue">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #1e40af;">무태조야동</div>
+                        <div class="area-badge" style="background-color: #2563eb;">3위</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>등록인구:</span>
+                            <span style="font-weight: bold; color: #dc2626;">6.84 (2.4배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>외국인비율:</span>
+                            <span>0.32 (0.4배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.08 (0.1배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">0.10 (0.1배)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #991b1b;">6.05</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #1e40af;">
+                        🚨 <strong>전반적 안전시설 부족</strong> + 비상벨 거의 없음
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 특징별 그룹 분석 -->
+            <div class="groups-grid">
+                <div class="group-card red">
+                    <div class="group-title red">🔥 초고밀도 지역</div>
+                    <div class="group-desc">평균의 2.5배 이상</div>
+                    <ul class="group-list">
+                        <li>• 진천동 (3.5배)</li>
+                        <li>• 안심1동 (2.8배)</li>
+                        <li>• 월성1동 (2.7배)</li>
+                    </ul>
+                </div>
+                
+                <div class="group-card purple">
+                    <div class="group-title purple">🌍 외국인 집중</div>
+                    <div class="group-desc">평균의 2배 이상</div>
+                    <ul class="group-list">
+                        <li>• 신당동 (12배)</li>
+                        <li style="color: #9ca3af;">• 다른 지역은 낮음</li>
+                    </ul>
+                </div>
+                
+                <div class="group-card blue">
+                    <div class="group-title blue">🚔 치안공백 지역</div>
+                    <div class="group-desc">치안기관 거의 없음</div>
+                    <ul class="group-list">
+                        <li>• 안심1동 (0개)</li>
+                        <li>• 월성1동 (0개)</li>
+                        <li>• 무태조야동 (거의 없음)</li>
+                    </ul>
+                </div>
+                
+                <div class="group-card green">
+                    <div class="group-title green">📹 CCTV 부족</div>
+                    <div class="group-desc">평균의 50% 미만</div>
+                    <ul class="group-list">
+                        <li>• 신당동 (4% 수준)</li>
+                        <li>• 관문동 (10% 수준)</li>
+                        <li>• 진천동 (11% 수준)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 결론 -->
+        <div class="conclusion">
+            <div class="conclusion-title">💡 결론: 위험지역의 공통 DNA</div>
+            <div class="conclusion-content">
+                <div class="conclusion-formula">
+                    <strong style="color: #dc2626;">인구 과밀집</strong> + 
+                    <strong style="color: #2563eb;">치안 인프라 부족</strong> + 
+                    <strong style="color: #7c3aed;">외국인 집중</strong>
+                </div>
+                <p>
+                    이 6곳은 모두 <span style="font-weight: bold; color: #dc2626;">사람은 많이 몰려있는데 지켜줄 시설은 없는</span> 전형적인 치안 사각지대의 특징을 보입니다.
+                </p>
+                <div class="conclusion-insight">
+                    <p><strong>특히 주목할 점:</strong> 신당동은 외국인 집중지역의 특수성을, 진천동은 극도의 인구과밀 문제를, 안심1동과 월성1동은 치안공백의 심각성을 각각 보여주는 대표적 사례입니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 비교 차트 데이터
+        const comparisonData = [
+            { name: '등록인구', ratio: 2.69, color: '#ef4444' },
+            { name: '외국인비율', ratio: 2.24, color: '#ef4444' },
+            { name: '여성비율', ratio: 0.90, color: '#64748b' },
+            { name: '고령자비율', ratio: 0.56, color: '#64748b' },
+            { name: '유흥업소수', ratio: 0.23, color: '#64748b' },
+            { name: '치안기관', ratio: 0.16, color: '#3b82f6' },
+            { name: '생활방범CCTV', ratio: 0.24, color: '#3b82f6' },
+            { name: '어린이CCTV', ratio: 0.30, color: '#3b82f6' },
+            { name: '기타CCTV', ratio: 0.44, color: '#3b82f6' },
+            { name: '시설물CCTV', ratio: 0.08, color: '#3b82f6' },
+            { name: '안전비상벨', ratio: 0.55, color: '#3b82f6' }
+        ];
+
+        // 비교 차트
+        const ctx1 = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: comparisonData.map(item => item.name),
+                datasets: [{
+                    label: '전체 평균 대비 비율',
+                    data: comparisonData.map(item => item.ratio),
+                    backgroundColor: comparisonData.map(item => item.color),
+                    borderColor: comparisonData.map(item => item.color),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 3
+                    }
+                }
+            }
+        });
+
+        // 개별 지역 차트
+        const individualData = [
+            { name: '진천동', 등록인구: 10.0, 치안기관: 0.37, CCTV: 0.11, 외국인비율: 0.32 },
+            { name: '안심1동', 등록인구: 7.94, 치안기관: 0.0, CCTV: 0.25, 외국인비율: 0.33 },
+            { name: '월성1동', 등록인구: 7.71, 치안기관: 0.0, CCTV: 0.83, 외국인비율: 0.07 },
+            { name: '신당동', 등록인구: 6.89, 치안기관: 0.0, CCTV: 0.06, 외국인비율: 1.25 },
+            { name: '관문동', 등록인구: 8.24, 치안기관: 0.25, CCTV: 0.13, 외국인비율: 4.42 },
+            { name: '무태조야동', 등록인구: 5.29, 치안기관: 0.17, CCTV: 0.04, 외국인비율: 4.83 }
+        ];
+
+        const ctx2 = document.getElementById('individualChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: individualData.map(item => item.name),
+                datasets: [
+                    {
+                        label: '등록인구',
+                        data: individualData.map(item => item.등록인구),
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        borderWidth: 3,
+                        fill: false
+                    },
+                    {
+                        label: '치안기관',
+                        data: individualData.map(item => item.치안기관),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: false
+                    },
+                    {
+                        label: 'CCTV',
+                        data: individualData.map(item => item.CCTV),
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 3,
+                        fill: false
+                    },
+                    {
+                        label: '외국인비율',
+                        data: individualData.map(item => item.외국인비율),
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderWidth: 3,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

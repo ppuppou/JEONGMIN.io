@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>안전지역 6곳의 공통 패턴 분석</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb;
+            line-height: 1.6;
+            color: #374151;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: #1f2937;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid;
+        }
+        
+        .stat-card.green { border-left-color: #10b981; }
+        .stat-card.blue { border-left-color: #3b82f6; }
+        .stat-card.purple { border-left-color: #8b5cf6; }
+        .stat-card.red { border-left-color: #ef4444; }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-number.green { color: #059669; }
+        .stat-number.blue { color: #2563eb; }
+        .stat-number.purple { color: #7c3aed; }
+        .stat-number.red { color: #dc2626; }
+        
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .patterns-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+        
+        .patterns-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .pattern-card {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid;
+        }
+        
+        .pattern-card.green {
+            background: #f0fdf4;
+            border-left-color: #10b981;
+        }
+        
+        .pattern-card.blue {
+            background: #eff6ff;
+            border-left-color: #3b82f6;
+        }
+        
+        .pattern-card.purple {
+            background: #faf5ff;
+            border-left-color: #8b5cf6;
+        }
+        
+        .pattern-card.orange {
+            background: #fff7ed;
+            border-left-color: #f97316;
+        }
+        
+        .pattern-card.red {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+        }
+        
+        .pattern-card.yellow {
+            background: #fefce8;
+            border-left-color: #eab308;
+        }
+        
+        .pattern-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pattern-title.green { color: #047857; }
+        .pattern-title.blue { color: #1d4ed8; }
+        .pattern-title.purple { color: #7c2d12; }
+        .pattern-title.orange { color: #c2410c; }
+        .pattern-title.red { color: #b91c1c; }
+        .pattern-title.yellow { color: #a16207; }
+        
+        .pattern-value {
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .pattern-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .area-card {
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid;
+            background: linear-gradient(135deg, var(--bg-from), var(--bg-to));
+        }
+        
+        .area-card.green {
+            --bg-from: #f0fdf4;
+            --bg-to: #dcfce7;
+            border-color: #bbf7d0;
+        }
+        
+        .area-card.blue {
+            --bg-from: #eff6ff;
+            --bg-to: #dbeafe;
+            border-color: #bfdbfe;
+        }
+        
+        .area-card.purple {
+            --bg-from: #faf5ff;
+            --bg-to: #f3e8ff;
+            border-color: #e9d5ff;
+        }
+        
+        .area-card.yellow {
+            --bg-from: #fefce8;
+            --bg-to: #fef3c7;
+            border-color: #fed7aa;
+        }
+        
+        .area-card.indigo {
+            --bg-from: #eef2ff;
+            --bg-to: #e0e7ff;
+            border-color: #c7d2fe;
+        }
+        
+        .area-card.teal {
+            --bg-from: #f0fdfa;
+            --bg-to: #ccfbf1;
+            border-color: #99f6e4;
+        }
+        
+        .area-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .area-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        .area-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .area-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .area-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        
+        .area-desc {
+            font-size: 0.8rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background: rgba(255,255,255,0.7);
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #dcfce7, #dbeafe);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .conclusion-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1f2937;
+        }
+        
+        .conclusion-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #374151;
+        }
+        
+        .conclusion-formula {
+            margin-bottom: 1rem;
+        }
+        
+        .conclusion-insight {
+            font-size: 0.9rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .patterns-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ 안전지역 6곳의 공통 패턴 분석</h1>
+        
+        <!-- 핵심 통계 요약 -->
+        <div class="stats-grid">
+            <div class="stat-card green">
+                <div class="stat-number green">0.31배</div>
+                <div class="stat-label">낮은 인구밀도</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-number blue">2.70배</div>
+                <div class="stat-label">풍부한 치안기관</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-number purple">5.65배</div>
+                <div class="stat-label">충분한 CCTV</div>
+            </div>
+            <div class="stat-card red">
+                <div class="stat-number red">0.54배</div>
+                <div class="stat-label">낮은 범죄발생</div>
+            </div>
+        </div>
+        
+        <!-- 차트 섹션 -->
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title">안전지역 vs 위험지역 vs 전체평균</div>
+                <canvas id="comparisonChart" width="400" height="300"></canvas>
+            </div>
+            <div class="chart-container">
+                <div class="chart-title">극명한 대비</div>
+                <canvas id="contrastChart" width="400" height="300"></canvas>
+            </div>
+        </div>
+        
+        <!-- 안전의 핵심 패턴 -->
+        <div class="patterns-section">
+            <div class="section-title">🔑 안전지역의 핵심 패턴</div>
+            <div class="patterns-grid">
+                <div class="pattern-card green">
+                    <div class="pattern-title green">🏘️ 적정한 인구밀도</div>
+                    <div class="pattern-value">평균의 <strong>31%</strong> 수준</div>
+                    <div class="pattern-desc">과밀하지 않아 범죄 기회 적음</div>
+                </div>
+                
+                <div class="pattern-card blue">
+                    <div class="pattern-title blue">🚔 풍부한 치안기관</div>
+                    <div class="pattern-value">평균의 <strong>2.7배</strong> 수준</div>
+                    <div class="pattern-desc">즉시 대응 가능한 경찰력</div>
+                </div>
+                
+                <div class="pattern-card purple">
+                    <div class="pattern-title purple">📹 충분한 CCTV</div>
+                    <div class="pattern-value">평균의 <strong>5.6배</strong> 수준</div>
+                    <div class="pattern-desc">촘촘한 감시 네트워크</div>
+                </div>
+                
+                <div class="pattern-card orange">
+                    <div class="pattern-title orange">👶 아동보호 우수</div>
+                    <div class="pattern-value">어린이CCTV <strong>5.5배</strong></div>
+                    <div class="pattern-desc">아이들이 안전한 환경</div>
+                </div>
+                
+                <div class="pattern-card red">
+                    <div class="pattern-title red">🚨 비상대응 우수</div>
+                    <div class="pattern-value">안전비상벨 <strong>3.4배</strong></div>
+                    <div class="pattern-desc">응급상황 즉시 대응</div>
+                </div>
+                
+                <div class="pattern-card yellow">
+                    <div class="pattern-title yellow">👴 안정된 고령화</div>
+                    <div class="pattern-value">고령자비율 <strong>1.3배</strong></div>
+                    <div class="pattern-desc">조용하고 안정된 주거환경</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 개별 안전지역 분석 -->
+        <div class="patterns-section">
+            <div class="section-title">🏘️ 개별 안전지역 분석</div>
+            <div class="areas-grid">
+                <!-- 평리5동 -->
+                <div class="area-card green">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #047857;">🥇 평리5동</div>
+                        <div class="area-badge" style="background-color: #059669;">범죄ZERO</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #059669;">0.00</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>인구밀도:</span>
+                            <span>0.48 (초저밀도)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">10.32 (초우수)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">2.72 (충분)</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #047857;">
+                        🏆 <strong>완벽한 안전지역</strong> - 모든 지표 우수
+                    </div>
+                </div>
+                
+                <!-- 원대동 -->
+                <div class="area-card blue">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #1e40af;">원대동</div>
+                        <div class="area-badge" style="background-color: #2563eb;">치안우수</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #059669;">1.64</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>인구밀도:</span>
+                            <span>0.88 (저밀도)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">3.69 (최우수)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">6.20 (우수)</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #1e40af;">
+                        🚔 <strong>치안기관이 가장 많은</strong> 모범지역
+                    </div>
+                </div>
+                
+                <!-- 비산6동 -->
+                <div class="area-card purple">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #7c2d12;">비산6동</div>
+                        <div class="area-badge" style="background-color: #7c3aed;">CCTV풍부</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #059669;">1.64</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>인구밀도:</span>
+                            <span>0.74 (저밀도)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">5.37 (우수)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>고령화:</span>
+                            <span>높음 (안정)</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #7c2d12;">
+                        📹 <strong>CCTV 인프라</strong>와 고령화의 조화
+                    </div>
+                </div>
+                
+                <!-- 평리1동 -->
+                <div class="area-card yellow">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #a16207;">평리1동</div>
+                        <div class="area-badge" style="background-color: #ca8a04;">균형형</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #059669;">1.70</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>인구밀도:</span>
+                            <span>0.90 (적정)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">3.31 (충분)</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #a16207;">
+                        ⚖️ <strong>모든 지표가 균형있게</strong> 우수
+                    </div>
+                </div>
+                
+                <!-- 평리2동 -->
+                <div class="area-card indigo">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #3730a3;">평리2동</div>
+                        <div class="area-badge" style="background-color: #4f46e5;">비상벨우수</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #059669;">1.73</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>인구밀도:</span>
+                            <span>1.23 (적정)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>비상벨:</span>
+                            <span style="font-weight: bold; color: #dc2626;">우수</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #3730a3;">
+                        🚨 <strong>비상대응체계</strong> 특히 우수
+                    </div>
+                </div>
+                
+                <!-- 성내2동 -->
+                <div class="area-card teal">
+                    <div class="area-header">
+                        <div class="area-name" style="color: #115e59;">성내2동</div>
+                        <div class="area-badge" style="background-color: #0d9488;">중심가형</div>
+                    </div>
+                    <div class="area-stats">
+                        <div class="area-stat">
+                            <span>범죄발생:</span>
+                            <span style="font-weight: bold; color: #ca8a04;">3.01</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>치안기관:</span>
+                            <span style="font-weight: bold; color: #2563eb;">3.69 (최우수)</span>
+                        </div>
+                        <div class="area-stat">
+                            <span>CCTV:</span>
+                            <span style="font-weight: bold; color: #2563eb;">4.66 (우수)</span>
+                        </div>
+                    </div>
+                    <div class="area-desc" style="color: #115e59;">
+                        🏢 <strong>중심가역할</strong>하지만 안전시설 충분
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 결론 -->
+        <div class="conclusion">
+            <div class="conclusion-title">💡 결론: 안전지역의 성공 공식</div>
+            <div class="conclusion-content">
+                <div class="conclusion-formula">
+                    <strong style="color: #059669;">적정 인구밀도</strong> + 
+                    <strong style="color: #2563eb;">충분한 치안인프라</strong> + 
+                    <strong style="color: #7c3aed;">고령화의 안정성</strong>
+                </div>
+                <p>
+                    안전한 지역들은 <span style="font-weight: bold; color: #059669;">사람이 적당히 살면서 안전시설이 충분한</span> 이상적인 주거환경을 보입니다.
+                </p>
+                <div class="conclusion-insight">
+                    <p><strong>핵심 인사이트:</strong> 위험지역과 정반대로, 안전지역은 인구밀도가 낮으면서도 치안인프라가 풍부하고, 고령화된 안정적 주거지의 특성을 보입니다. 특히 평리5동의 범죄 제로 달성은 완벽한 안전지역의 모델이 될 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 비교 차트
+        const ctx1 = document.getElementById('comparisonChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['인구밀도', '고령자비율', '치안기관', 'CCTV', '어린이CCTV', '안전비상벨'],
+                datasets: [{
+                    label: '안전지역',
+                    data: [0.31, 1.34, 2.70, 5.65, 5.49, 3.40],
+                    backgroundColor: '#10b981'
+                }, {
+                    label: '위험지역',
+                    data: [2.69, 0.56, 0.16, 0.24, 0.30, 0.55],
+                    backgroundColor: '#ef4444'
+                }, {
+                    label: '전체평균',
+                    data: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+                    backgroundColor: '#64748b'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 대비 차트
+        const ctx2 = document.getElementById('contrastChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['인구밀도', '치안기관', 'CCTV', '범죄발생'],
+                datasets: [{
+                    label: '안전지역',
+                    data: [0.88, 2.19, 5.47, 1.62],
+                    backgroundColor: '#10b981'
+                }, {
+                    label: '위험지역',
+                    data: [7.68, 0.13, 0.24, 7.21],
+                    backgroundColor: '#ef4444'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

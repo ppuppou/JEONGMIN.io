@@ -1,0 +1,398 @@
+"rank","discipline","yrs.since.phd","yrs.service","sex","salary"
+"Professor","Applied",19,18,"Male",139750
+"Professor","Applied",20,16,"Male",173200
+"Assistant Professor","Applied",4,3,"Male",79750
+"Professor","Applied",45,39,"Male",115000
+"Professor","Applied",40,41,"Male",141500
+"Associate Professor","Applied",6,6,"Male",97000
+"Professor","Applied",30,23,"Male",175000
+"Professor","Applied",45,45,"Male",147765
+"Professor","Applied",21,20,"Male",119250
+"Professor","Applied",18,18,"Female",129000
+"Associate Professor","Applied",12,8,"Male",119800
+"Assistant Professor","Applied",7,2,"Male",79800
+"Assistant Professor","Applied",1,1,"Male",77700
+"Assistant Professor","Applied",2,0,"Male",78000
+"Professor","Applied",20,18,"Male",104800
+"Professor","Applied",12,3,"Male",117150
+"Professor","Applied",19,20,"Male",101000
+"Professor","Theoretical",38,34,"Male",103450
+"Professor","Theoretical",37,23,"Male",124750
+"Professor","Theoretical",39,36,"Female",137000
+"Professor","Theoretical",31,26,"Male",89565
+"Professor","Theoretical",36,31,"Male",102580
+"Professor","Theoretical",34,30,"Male",93904
+"Professor","Theoretical",24,19,"Male",113068
+"Associate Professor","Theoretical",13,8,"Female",74830
+"Professor","Theoretical",21,8,"Male",106294
+"Professor","Theoretical",35,23,"Male",134885
+"Assistant Professor","Applied",5,3,"Male",82379
+"Assistant Professor","Applied",11,0,"Male",77000
+"Professor","Applied",12,8,"Male",118223
+"Professor","Applied",20,4,"Male",132261
+"Assistant Professor","Applied",7,2,"Male",79916
+"Professor","Applied",13,9,"Male",117256
+"Assistant Professor","Applied",4,2,"Male",80225
+"Assistant Professor","Applied",4,2,"Female",80225
+"Assistant Professor","Applied",5,0,"Female",77000
+"Professor","Applied",22,21,"Male",155750
+"Assistant Professor","Applied",7,4,"Male",86373
+"Professor","Applied",41,31,"Male",125196
+"Associate Professor","Applied",9,9,"Male",100938
+"Professor","Applied",23,2,"Male",146500
+"Associate Professor","Applied",23,23,"Male",93418
+"Professor","Applied",40,27,"Male",101299
+"Professor","Applied",38,38,"Male",231545
+"Professor","Applied",19,19,"Male",94384
+"Professor","Applied",25,15,"Male",114778
+"Professor","Applied",40,28,"Male",98193
+"Professor","Applied",23,19,"Female",151768
+"Professor","Applied",25,25,"Female",140096
+"Assistant Professor","Applied",1,1,"Male",70768
+"Professor","Applied",28,28,"Male",126621
+"Professor","Applied",12,11,"Male",108875
+"Assistant Professor","Applied",11,3,"Female",74692
+"Professor","Applied",16,9,"Male",106639
+"Associate Professor","Applied",12,11,"Male",103760
+"Associate Professor","Applied",14,5,"Male",83900
+"Professor","Applied",23,21,"Male",117704
+"Associate Professor","Applied",9,8,"Male",90215
+"Associate Professor","Applied",10,9,"Male",100135
+"Assistant Professor","Applied",8,3,"Male",75044
+"Associate Professor","Applied",9,8,"Male",90304
+"Assistant Professor","Applied",3,2,"Male",75243
+"Professor","Applied",33,31,"Male",109785
+"Associate Professor","Applied",11,11,"Female",103613
+"Assistant Professor","Applied",4,3,"Male",68404
+"Associate Professor","Applied",9,8,"Male",100522
+"Professor","Applied",22,12,"Male",101000
+"Professor","Applied",35,31,"Male",99418
+"Professor","Applied",17,17,"Female",111512
+"Professor","Applied",28,36,"Male",91412
+"Professor","Applied",17,2,"Male",126320
+"Professor","Applied",45,45,"Male",146856
+"Professor","Applied",29,19,"Male",100131
+"Professor","Applied",35,34,"Male",92391
+"Professor","Applied",28,23,"Male",113398
+"Assistant Professor","Applied",8,3,"Male",73266
+"Professor","Applied",17,3,"Male",150480
+"Professor","Applied",26,19,"Male",193000
+"Assistant Professor","Applied",3,1,"Male",86100
+"Assistant Professor","Applied",6,2,"Male",84240
+"Professor","Applied",43,28,"Male",150743
+"Professor","Applied",17,16,"Male",135585
+"Professor","Applied",22,20,"Male",144640
+"Assistant Professor","Applied",6,2,"Male",88825
+"Professor","Applied",17,18,"Female",122960
+"Professor","Applied",15,14,"Male",132825
+"Professor","Applied",37,37,"Male",152708
+"Assistant Professor","Applied",2,2,"Male",88400
+"Professor","Applied",25,25,"Male",172272
+"Associate Professor","Applied",9,7,"Male",107008
+"Assistant Professor","Applied",10,5,"Female",97032
+"Associate Professor","Applied",10,7,"Male",105128
+"Associate Professor","Applied",10,7,"Male",105631
+"Professor","Applied",38,38,"Male",166024
+"Professor","Applied",21,20,"Male",123683
+"Assistant Professor","Applied",4,0,"Male",84000
+"Associate Professor","Applied",17,12,"Male",95611
+"Professor","Applied",13,7,"Male",129676
+"Professor","Applied",30,14,"Male",102235
+"Professor","Applied",41,26,"Male",106689
+"Professor","Applied",42,25,"Male",133217
+"Professor","Applied",28,23,"Male",126933
+"Professor","Applied",16,5,"Male",153303
+"Professor","Applied",20,14,"Female",127512
+"Associate Professor","Theoretical",18,10,"Male",83850
+"Professor","Theoretical",31,28,"Male",113543
+"Associate Professor","Theoretical",11,8,"Male",82099
+"Associate Professor","Theoretical",10,8,"Male",82600
+"Associate Professor","Theoretical",15,8,"Male",81500
+"Professor","Theoretical",40,31,"Male",131205
+"Professor","Theoretical",20,16,"Male",112429
+"Associate Professor","Theoretical",19,16,"Male",82100
+"Assistant Professor","Theoretical",3,1,"Male",72500
+"Professor","Theoretical",37,37,"Male",104279
+"Professor","Theoretical",12,0,"Female",105000
+"Professor","Theoretical",21,9,"Male",120806
+"Professor","Theoretical",30,29,"Male",148500
+"Professor","Theoretical",39,36,"Male",117515
+"Assistant Professor","Theoretical",4,1,"Male",72500
+"Assistant Professor","Theoretical",5,3,"Female",73500
+"Professor","Theoretical",14,14,"Male",115313
+"Professor","Theoretical",32,32,"Male",124309
+"Professor","Theoretical",24,22,"Male",97262
+"Associate Professor","Theoretical",25,22,"Female",62884
+"Professor","Theoretical",24,22,"Male",96614
+"Professor","Theoretical",54,49,"Male",78162
+"Professor","Theoretical",28,26,"Male",155500
+"Assistant Professor","Theoretical",2,0,"Female",72500
+"Professor","Theoretical",32,30,"Male",113278
+"Assistant Professor","Theoretical",4,2,"Male",73000
+"Associate Professor","Theoretical",11,9,"Male",83001
+"Professor","Theoretical",56,57,"Male",76840
+"Associate Professor","Theoretical",10,8,"Female",77500
+"Assistant Professor","Theoretical",3,1,"Female",72500
+"Professor","Theoretical",35,25,"Male",168635
+"Professor","Theoretical",20,18,"Male",136000
+"Professor","Theoretical",16,14,"Male",108262
+"Professor","Theoretical",17,14,"Male",105668
+"Associate Professor","Theoretical",10,7,"Male",73877
+"Professor","Theoretical",21,18,"Male",152664
+"Associate Professor","Theoretical",14,8,"Male",100102
+"Associate Professor","Theoretical",15,10,"Male",81500
+"Professor","Theoretical",19,11,"Male",106608
+"Assistant Professor","Applied",3,3,"Male",89942
+"Professor","Applied",27,27,"Male",112696
+"Professor","Applied",28,28,"Male",119015
+"Assistant Professor","Applied",4,4,"Male",92000
+"Professor","Applied",27,27,"Male",156938
+"Professor","Applied",36,26,"Female",144651
+"Assistant Professor","Applied",4,3,"Male",95079
+"Professor","Applied",14,12,"Male",128148
+"Assistant Professor","Applied",4,4,"Male",92000
+"Professor","Applied",21,9,"Male",111168
+"Associate Professor","Applied",12,10,"Female",103994
+"Assistant Professor","Applied",4,0,"Male",92000
+"Professor","Applied",21,21,"Male",118971
+"Associate Professor","Applied",12,18,"Male",113341
+"Assistant Professor","Applied",1,0,"Male",88000
+"Associate Professor","Applied",6,6,"Male",95408
+"Professor","Applied",15,16,"Male",137167
+"Assistant Professor","Applied",2,2,"Male",89516
+"Professor","Applied",26,19,"Male",176500
+"Associate Professor","Applied",22,7,"Male",98510
+"Assistant Professor","Applied",3,3,"Male",89942
+"Assistant Professor","Applied",1,0,"Male",88795
+"Professor","Applied",21,8,"Male",105890
+"Professor","Applied",16,16,"Male",167284
+"Professor","Applied",18,19,"Male",130664
+"Associate Professor","Applied",8,6,"Male",101210
+"Professor","Applied",25,18,"Male",181257
+"Assistant Professor","Applied",5,5,"Male",91227
+"Professor","Applied",19,19,"Male",151575
+"Professor","Applied",37,24,"Male",93164
+"Professor","Applied",20,20,"Male",134185
+"Associate Professor","Applied",17,6,"Male",105000
+"Professor","Applied",28,25,"Male",111751
+"Associate Professor","Applied",10,7,"Male",95436
+"Associate Professor","Applied",13,9,"Male",100944
+"Professor","Applied",27,14,"Male",147349
+"Assistant Professor","Applied",3,3,"Female",92000
+"Professor","Applied",11,11,"Male",142467
+"Professor","Applied",18,5,"Male",141136
+"Associate Professor","Applied",8,8,"Male",100000
+"Professor","Applied",26,22,"Male",150000
+"Professor","Applied",23,23,"Male",101000
+"Professor","Applied",33,30,"Male",134000
+"Associate Professor","Applied",13,10,"Female",103750
+"Professor","Applied",18,10,"Male",107500
+"Associate Professor","Applied",28,28,"Male",106300
+"Professor","Applied",25,19,"Male",153750
+"Professor","Applied",22,9,"Male",180000
+"Professor","Applied",43,22,"Male",133700
+"Professor","Applied",19,18,"Male",122100
+"Associate Professor","Applied",19,19,"Male",86250
+"Associate Professor","Applied",48,53,"Male",90000
+"Associate Professor","Applied",9,7,"Male",113600
+"Assistant Professor","Applied",4,4,"Male",92700
+"Assistant Professor","Applied",4,4,"Male",92000
+"Professor","Applied",34,33,"Male",189409
+"Professor","Applied",38,22,"Male",114500
+"Assistant Professor","Applied",4,4,"Male",92700
+"Professor","Applied",40,40,"Male",119700
+"Professor","Applied",28,17,"Male",160400
+"Professor","Applied",17,17,"Male",152500
+"Professor","Applied",19,5,"Male",165000
+"Professor","Applied",21,2,"Male",96545
+"Professor","Applied",35,33,"Male",162200
+"Professor","Applied",18,18,"Male",120000
+"Assistant Professor","Applied",7,2,"Male",91300
+"Professor","Applied",20,20,"Male",163200
+"Assistant Professor","Applied",4,3,"Male",91000
+"Professor","Applied",39,39,"Male",111350
+"Professor","Applied",15,7,"Male",128400
+"Professor","Applied",26,19,"Male",126200
+"Associate Professor","Applied",11,1,"Male",118700
+"Professor","Applied",16,11,"Male",145350
+"Professor","Applied",15,11,"Male",146000
+"Associate Professor","Applied",29,22,"Male",105350
+"Associate Professor","Applied",14,7,"Female",109650
+"Professor","Applied",13,11,"Male",119500
+"Professor","Applied",21,21,"Male",170000
+"Professor","Applied",23,10,"Male",145200
+"Associate Professor","Applied",13,6,"Male",107150
+"Professor","Applied",34,20,"Male",129600
+"Professor","Theoretical",38,35,"Male",87800
+"Professor","Theoretical",20,20,"Male",122400
+"Assistant Professor","Theoretical",3,1,"Male",63900
+"Associate Professor","Theoretical",9,7,"Male",70000
+"Professor","Theoretical",16,11,"Male",88175
+"Professor","Theoretical",39,38,"Male",133900
+"Professor","Theoretical",29,27,"Female",91000
+"Associate Professor","Theoretical",26,24,"Female",73300
+"Professor","Theoretical",38,19,"Male",148750
+"Professor","Theoretical",36,19,"Female",117555
+"Assistant Professor","Theoretical",8,3,"Male",69700
+"Professor","Theoretical",28,17,"Male",81700
+"Professor","Theoretical",25,25,"Male",114000
+"Assistant Professor","Theoretical",7,6,"Female",63100
+"Professor","Theoretical",46,40,"Male",77202
+"Professor","Theoretical",19,6,"Male",96200
+"Assistant Professor","Theoretical",5,3,"Male",69200
+"Professor","Theoretical",31,30,"Male",122875
+"Professor","Theoretical",38,37,"Male",102600
+"Professor","Theoretical",23,23,"Male",108200
+"Professor","Theoretical",19,23,"Male",84273
+"Professor","Theoretical",17,11,"Female",90450
+"Professor","Theoretical",30,23,"Male",91100
+"Professor","Theoretical",21,18,"Male",101100
+"Professor","Theoretical",28,23,"Male",128800
+"Professor","Theoretical",29,7,"Male",204000
+"Professor","Theoretical",39,39,"Male",109000
+"Professor","Theoretical",20,8,"Male",102000
+"Professor","Theoretical",31,12,"Male",132000
+"Assistant Professor","Theoretical",4,2,"Female",77500
+"Professor","Theoretical",28,7,"Female",116450
+"Associate Professor","Theoretical",12,8,"Male",83000
+"Professor","Theoretical",22,22,"Male",140300
+"Associate Professor","Theoretical",30,23,"Male",74000
+"Assistant Professor","Theoretical",9,3,"Male",73800
+"Professor","Theoretical",32,30,"Male",92550
+"Associate Professor","Theoretical",41,33,"Male",88600
+"Professor","Theoretical",45,45,"Male",107550
+"Professor","Theoretical",31,26,"Male",121200
+"Professor","Theoretical",31,31,"Male",126000
+"Professor","Theoretical",37,35,"Male",99000
+"Professor","Theoretical",36,30,"Male",134800
+"Professor","Theoretical",43,43,"Male",143940
+"Professor","Theoretical",14,10,"Male",104350
+"Professor","Theoretical",47,44,"Male",89650
+"Professor","Theoretical",13,7,"Male",103700
+"Professor","Theoretical",42,40,"Male",143250
+"Professor","Theoretical",42,18,"Male",194800
+"Assistant Professor","Theoretical",4,1,"Male",73000
+"Assistant Professor","Theoretical",8,4,"Male",74000
+"Assistant Professor","Theoretical",8,3,"Female",78500
+"Professor","Theoretical",12,6,"Male",93000
+"Professor","Theoretical",52,48,"Male",107200
+"Professor","Theoretical",31,27,"Male",163200
+"Professor","Theoretical",24,18,"Male",107100
+"Professor","Theoretical",46,46,"Male",100600
+"Professor","Theoretical",39,38,"Male",136500
+"Professor","Theoretical",37,27,"Male",103600
+"Professor","Theoretical",51,51,"Male",57800
+"Professor","Theoretical",45,43,"Male",155865
+"Associate Professor","Theoretical",8,6,"Male",88650
+"Associate Professor","Theoretical",49,49,"Male",81800
+"Professor","Theoretical",28,27,"Male",115800
+"Assistant Professor","Theoretical",2,0,"Male",85000
+"Professor","Theoretical",29,27,"Male",150500
+"Assistant Professor","Theoretical",8,5,"Male",74000
+"Professor","Theoretical",33,7,"Male",174500
+"Professor","Theoretical",32,28,"Male",168500
+"Professor","Theoretical",39,9,"Male",183800
+"Associate Professor","Theoretical",11,1,"Male",104800
+"Professor","Theoretical",19,7,"Male",107300
+"Professor","Theoretical",40,36,"Male",97150
+"Professor","Theoretical",18,18,"Male",126300
+"Professor","Theoretical",17,11,"Male",148800
+"Professor","Theoretical",49,43,"Male",72300
+"Associate Professor","Theoretical",45,39,"Male",70700
+"Professor","Theoretical",39,36,"Male",88600
+"Professor","Theoretical",27,16,"Male",127100
+"Professor","Theoretical",28,13,"Male",170500
+"Professor","Theoretical",14,4,"Male",105260
+"Professor","Theoretical",46,44,"Male",144050
+"Professor","Theoretical",33,31,"Male",111350
+"Assistant Professor","Theoretical",7,4,"Male",74500
+"Professor","Theoretical",31,28,"Male",122500
+"Assistant Professor","Theoretical",5,0,"Male",74000
+"Professor","Theoretical",22,15,"Male",166800
+"Professor","Theoretical",20,7,"Male",92050
+"Professor","Theoretical",14,9,"Male",108100
+"Professor","Theoretical",29,19,"Male",94350
+"Professor","Theoretical",35,35,"Male",100351
+"Professor","Theoretical",22,6,"Male",146800
+"Assistant Professor","Applied",6,3,"Male",84716
+"Associate Professor","Applied",12,9,"Female",71065
+"Professor","Applied",46,45,"Male",67559
+"Professor","Applied",16,16,"Male",134550
+"Professor","Applied",16,15,"Male",135027
+"Professor","Applied",24,23,"Male",104428
+"Associate Professor","Applied",9,9,"Male",95642
+"Associate Professor","Applied",13,11,"Male",126431
+"Professor","Applied",24,15,"Female",161101
+"Professor","Applied",30,31,"Male",162221
+"Assistant Professor","Applied",8,4,"Male",84500
+"Professor","Applied",23,15,"Male",124714
+"Professor","Applied",37,37,"Male",151650
+"Associate Professor","Applied",10,10,"Male",99247
+"Professor","Applied",23,23,"Male",134778
+"Professor","Applied",49,60,"Male",192253
+"Professor","Applied",20,9,"Male",116518
+"Professor","Applied",18,10,"Female",105450
+"Professor","Applied",33,19,"Male",145098
+"Associate Professor","Applied",19,6,"Female",104542
+"Professor","Applied",36,38,"Male",151445
+"Professor","Applied",35,23,"Male",98053
+"Professor","Applied",13,12,"Male",145000
+"Professor","Applied",32,25,"Male",128464
+"Professor","Applied",37,15,"Male",137317
+"Professor","Applied",13,11,"Male",106231
+"Professor","Applied",17,17,"Female",124312
+"Professor","Applied",38,38,"Male",114596
+"Professor","Applied",31,31,"Male",162150
+"Professor","Applied",32,35,"Male",150376
+"Professor","Applied",15,10,"Male",107986
+"Professor","Applied",41,27,"Male",142023
+"Professor","Applied",39,33,"Male",128250
+"Assistant Professor","Applied",4,3,"Male",80139
+"Professor","Applied",27,28,"Male",144309
+"Professor","Applied",56,49,"Male",186960
+"Professor","Applied",38,38,"Male",93519
+"Professor","Applied",26,27,"Male",142500
+"Professor","Applied",22,20,"Male",138000
+"Assistant Professor","Applied",8,1,"Male",83600
+"Professor","Applied",25,21,"Male",145028
+"Professor","Theoretical",49,40,"Male",88709
+"Professor","Theoretical",39,35,"Male",107309
+"Professor","Theoretical",28,14,"Female",109954
+"Assistant Professor","Theoretical",11,4,"Male",78785
+"Professor","Theoretical",14,11,"Male",121946
+"Professor","Theoretical",23,15,"Female",109646
+"Professor","Theoretical",30,30,"Male",138771
+"Associate Professor","Theoretical",20,17,"Male",81285
+"Professor","Theoretical",43,43,"Male",205500
+"Professor","Theoretical",43,40,"Male",101036
+"Professor","Theoretical",15,10,"Male",115435
+"Associate Professor","Theoretical",10,1,"Male",108413
+"Professor","Theoretical",35,30,"Male",131950
+"Professor","Theoretical",33,31,"Male",134690
+"Associate Professor","Theoretical",13,8,"Male",78182
+"Professor","Theoretical",23,20,"Male",110515
+"Professor","Theoretical",12,7,"Male",109707
+"Professor","Theoretical",30,26,"Male",136660
+"Professor","Theoretical",27,19,"Male",103275
+"Professor","Theoretical",28,26,"Male",103649
+"Assistant Professor","Theoretical",4,1,"Male",74856
+"Assistant Professor","Theoretical",6,3,"Male",77081
+"Professor","Theoretical",38,38,"Male",150680
+"Associate Professor","Theoretical",11,8,"Male",104121
+"Assistant Professor","Theoretical",8,3,"Male",75996
+"Professor","Theoretical",27,23,"Male",172505
+"Associate Professor","Theoretical",8,5,"Male",86895
+"Professor","Theoretical",44,44,"Male",105000
+"Professor","Theoretical",27,21,"Male",125192
+"Professor","Theoretical",15,9,"Male",114330
+"Professor","Theoretical",29,27,"Male",139219
+"Professor","Theoretical",29,15,"Male",109305
+"Professor","Theoretical",38,36,"Male",119450
+"Professor","Theoretical",33,18,"Male",186023
+"Professor","Theoretical",40,19,"Male",166605
+"Professor","Theoretical",30,19,"Male",151292
+"Professor","Theoretical",33,30,"Male",103106
+"Professor","Theoretical",31,19,"Male",150564
+"Professor","Theoretical",42,25,"Male",101738
+"Professor","Theoretical",25,15,"Male",95329
+"Assistant Professor","Theoretical",8,4,"Male",81035

@@ -1,0 +1,90 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("./data/bike_data.csv")
+
+df = df.astype({'datetime' : 'datetime64[ns]', 'weather' : 'int64', 
+                'season' : 'object', 'workingday' : 'object', 
+                'holiday' : 'object'})
+
+# 계절이 1일 때 대여량이 가장 많은 시간대 구하기
+df['season'] == 1
+df1 = df.loc[df['season'] == 1,:]
+df1['hour'] = df1['datetime'].dt.hour
+df2 = df1.groupby('hour')['count'].mean().reset_index()
+q1 = df2.loc[df2['count'].idxmax(),['hour','count']]
+f"count가 가장 높은 시간대는 {q1['hour']}시이며 {q1['count']}회 입니다"
+
+# 계절별 평균 대여량 구하기
+df.groupby('season')['count'].mean().reset_index()
+
+# 특정 달 동안 총 대여량 구하기
+df['month'] = df['datetime'].dt.month
+df.groupby('month')['count'].sum().reset_index()
+
+# 가장 대여량이 많은 날짜
+df['date'] = df['datetime'].dt.date
+df.groupby('date')['count'].sum().idxmax()
+df.groupby('date')['count'].sum().max()
+
+# 시간대별 평균 대여량
+df['hour'] = df['datetime'].dt.hour
+df.groupby('hour')['count'].mean().reset_index()
+
+# 특정 요일(weekday) 동안의 총 대여량(count)
+df['요일'] = df['datetime'].dt.day_name()
+result = df.groupby('요일')['count'].sum().reset_index()
+f'월요일동안 총 대여량은 {result.iloc[1,1]}입니다'
+
+result['요일'] = result['요일'].astype('category')
+# result['요일'].array.categories = np.array(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])
+result['요일'] = result['요일'].cat.set_categories(
+    ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    ordered=True  # 순서가 중요할 경우
+)
+result['요일'].sort_values()
+
+# 주어진 Bike Sharing 데이터를 사용하여 넓은 형식(wide format)에서 
+# 긴 형식(long format)으로 변환하시오. casual과 registered 열을 하나의
+# 열로 변환하고, 각 기록의 대여 유형과 대여 수를 포함하는 긴 형식 
+# 데이터프레임을 만드시오.
+melted = df.melt(id_vars=('datetime','season'),
+                var_name='user_type',
+                value_vars=('casual','registered'),
+                value_name=('user_count')
+                ).sort_values('datetime')
+# 이전에 생성한 긴 형식 데이터프레임을 활용하여 각 계절(season)별로 
+# casual과 registered 사용자의 평균 대여 수(count)를 구하시오.
+melted.groupby(['season','user_type'])['user_count'].mean().reset_index()
+
+# 앱 로그 데이터
+pd.set_option('display.max_columns', None) # 전체 칼럼 정보 프린트 옵션
+df = pd.read_csv('./data/logdata.csv')
+print(df.head(2))
+
+# 로그 칼럼에서 연도 정보만 추출
+df['로그'].str.extract(r'(\d+)')
+df['로그'].str.extract(r'(20[0-9]+)')
+
+# 모든 숫자정보 추출
+mat1 = df['로그'].str.extractall(r'([0-9]+)').reset_index()
+del mat1['match']
+mat1.groupby('level_0')[0].apply(lambda x: ' '.join(map(str, x)))
+
+# 로그 칼럼에서 모든 시간 정보를 추출
+df['로그'].str.extract(r'([0-9]{2}:[0-9]{2}:[0-9]{2})')
+
+# 로그 칼럼에서 한글 정보만 추출
+df['로그'].str.extractall(r'([가-힣]+)')
+
+# 로그 칼럼에서 특수 문자를 제거
+df['로그'].str.replace(r'([^a-zA-Z0-9가-힣\s])','',regex=True)
+
+# 로그 칼럼에서 유저, Amount 값을 추출한 후 각 유저별 Amount의 평균값을 계산하시오.
+df1 = pd.DataFrame()
+df1['amount'] = df['로그'].str.extract(r'Amount: ([0-9]+)')
+df1['user'] = df['로그'].str.extract(r'User: ([가-힣]+)')
+df2 = df1.dropna()
+df2['amount'] = df2['amount'].astype('int64')
+df2.groupby('user')['amount'].mean()
+

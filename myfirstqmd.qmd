@@ -1,0 +1,62 @@
+---
+title: "Quarto Basics"
+format: docx # revealjs : web base ppt. ## 를 기준으로 페이지 분리
+jupyter: python3
+---
+
+## 나만의 제목(h2)
+
+For a **demonstration** of a line *plot on a polar* axis, see @fig-polar. 문장
+
+enter : 다음 문단\
+shift + enter : 문단 내에서 줄바꿈
+
+장볼 때 [다음 것을 사올 것!](naver.com)
+
+-   양파
+
+-   배추
+
+    -   enter + tab 하면 하위목록
+
+        | Col1              | Col2 | Col3 |
+        |-------------------|------|------|
+        | ![](data/cat.png) |      |      |
+        |                   |      |      |
+        |                   |      |      |
+
+    -   너무 상했으면 사오지 말것!
+
+-   음료수
+
+control + alt + I 를 누르면 코드청크 삽입 가능
+
+```{python}
+#| echo: True # = 코드도 보여줘라
+#| eval: True # = 
+#| output: False # = 코드 결과는 보여주지 말아라
+import numpy as np
+
+a = np.array([1,2,3])
+a
+```
+
+### Polar 그래프
+
+```{python}
+#| label: fig-polar
+#| fig-cap: "A line plot on a polar axis"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.arange(0, 2, 0.01)
+theta = 2 * np.pi * r
+fig, ax = plt.subplots(
+  subplot_kw = {'projection': 'polar'} 
+)
+ax.plot(theta, r)
+ax.set_rticks([0.5, 1, 1.5, 2])
+ax.grid(True)
+plt.show()
+```
